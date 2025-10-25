@@ -1,0 +1,38 @@
+void merge(int* nums1, int nums1Size, int m, int* nums2, int nums2Size, int n) {
+    /*使用冒泡排序法虽然简单但是效率较低，推荐使用双指针法
+    for(int i=0;i<n;i++){
+        nums1[m+i]=nums2[i];
+    }
+    for (int i = 0; i < nums1Size; i++)
+    {
+        for (int  j = 0; j < nums1Size-i-1; j++)
+        {
+            int temp;
+            if (nums1[j]>nums1[j+1])
+            {
+                temp=nums1[j];
+                nums1[j]=nums1[j+1];
+                nums1[j+1]=temp;
+            }
+            
+        }
+        
+    }*/
+
+    //双指针法简单高效
+    for (int j=m-1,i=n-1,k=nums1Size-1;i>=0;k--)
+    {
+        if (j>=0&&nums1[j]>nums2[i])//需要特别注意当m=0的情况！（J>0需要写在nums1[j]>nums2[i]之前，否则会导致运行时数组越界）
+        {
+            nums1[k]=nums1[j];
+            j--;
+        }
+        else{
+            nums1[k]=nums2[i];
+            i--;
+        }
+        
+    }
+    
+    
+}
