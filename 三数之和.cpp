@@ -56,3 +56,38 @@ int** threeSum(int* nums, int numsSize, int* returnSize, int** returnColumnSizes
     return result;
     
 }
+//二刷了，补一个c++的写法
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        int s=nums.size();
+        vector<vector<int>> res;
+        if(s<3) return res;
+        sort(nums.begin(),nums.end());
+        for(int first=0;first<s;++first){
+            if(first>0&&nums[first]==nums[first-1])
+            {
+                continue;
+            }
+            int third=s-1;
+            int target=-nums[first];
+            for(int second=first+1;second<s;++second)
+            {
+                if(second>first+1&&nums[second]==nums[second-1])
+                {
+                continue;
+                }
+                while(second<third&&nums[second]+nums[third]>target)
+                {
+                    --third;
+                }
+                if(second==third) break;
+                if(nums[second]+nums[third]==target)
+                {
+                    res.push_back({nums[first],nums[second],nums[third]});
+                }
+            }
+        } 
+        return res;
+    }
+};
