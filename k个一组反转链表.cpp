@@ -52,3 +52,40 @@ public:
         return dummy->next;     
     }
 };
+//二刷，补充一个旗鼓相当的解法
+class Solution {
+public:
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        ListNode dummy(0);
+        dummy.next = head;
+
+        ListNode* pre = &dummy;
+
+        while (true) {
+            ListNode* kth = pre;
+
+            for (int i = 0; i < k; i++) {
+                kth = kth->next;
+                if (kth == nullptr) {
+                    return dummy.next;
+                }
+            }
+
+            ListNode* groupNext = kth->next;
+
+            ListNode* cur = pre->next;
+
+            while (cur->next != groupNext) {
+                ListNode* next=cur->next;
+                cur->next=next->next;
+                next->next=pre->next;
+                pre->next=next;
+            }
+            kth=cur;
+            pre=cur;
+            cur=cur->next;
+        }
+
+        return dummy.next;
+    }
+};
