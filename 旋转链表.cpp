@@ -46,3 +46,27 @@ public:
        return head;
     }
 };
+//二刷，依旧链成环
+class Solution {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
+        if(head==nullptr) return nullptr;
+        ListNode*dummy=new ListNode(-1);
+        dummy->next=head;
+        ListNode*cur=head;
+        int nodeNum=1;
+        while(cur->next){
+            nodeNum++;
+            cur=cur->next;
+        }
+        cur->next=head;
+        cur=head;
+        k=nodeNum-k%nodeNum;
+        while(--k>0){
+            cur=cur->next;
+        }
+        dummy->next=cur->next;
+        cur->next=nullptr;
+        return dummy->next;
+    }
+};
